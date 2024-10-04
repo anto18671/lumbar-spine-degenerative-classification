@@ -8,8 +8,8 @@ This project is designed to participate in the **RSNA 2024 Lumbar Spine Degenera
 - [Dataset](#dataset)
 - [Model Architecture](#model-architecture)
 - [Installation](#installation)
-- [Docker Usage](#docker-usage)
 - [Usage](#usage)
+- [Docker Usage](#docker-usage)
 - [Preprocessing](#preprocessing)
 - [Training](#training)
 - [Evaluation](#evaluation)
@@ -72,6 +72,14 @@ Follow these steps to set up and run the project:
 3. **Set up data**:
    Place the dataset in the `data/` directory.
 
+## Usage
+
+To train and evaluate the model, run the following:
+
+```bash
+python main.py
+```
+
 ## Docker Usage
 
 If you prefer using Docker to set up the environment and avoid dependency issues, follow these steps to run the project in a Docker container:
@@ -91,14 +99,6 @@ docker run --gpus all -v /path/to/data:/app/data ghcr.io/anto18671/lumbar-spine-
 ```
 
 This approach ensures that your development environment is consistent and isolated from any external dependencies.
-
-## Usage
-
-To train and evaluate the model, run the following:
-
-```bash
-python main.py
-```
 
 ### Key Features:
 
