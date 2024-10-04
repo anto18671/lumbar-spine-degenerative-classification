@@ -8,6 +8,7 @@ This project is designed to participate in the **RSNA 2024 Lumbar Spine Degenera
 - [Dataset](#dataset)
 - [Model Architecture](#model-architecture)
 - [Installation](#installation)
+- [Docker Usage](#docker-usage)
 - [Usage](#usage)
 - [Preprocessing](#preprocessing)
 - [Training](#training)
@@ -58,7 +59,7 @@ Follow these steps to set up and run the project:
 
    ```bash
    git clone https://github.com/anto18671/lumbar-spine-degenerative-classification.git
-   cd rsna-lumbar-classification
+   cd lumbar-spine-degenerative-classification
    ```
 
 2. **Install dependencies**:
@@ -70,6 +71,44 @@ Follow these steps to set up and run the project:
 
 3. **Set up data**:
    Place the dataset in the `data/` directory.
+
+## Docker Usage
+
+If you prefer using Docker to set up the environment and avoid dependency issues, follow these steps to build and run the project in a Docker container:
+
+### 1. **Build the Docker Image**:
+
+To build the Docker image locally, use the provided Dockerfile in the repository. Ensure you are in the root of the project directory.
+
+```bash
+docker build -t lumbar-spine-degenerative-classification .
+```
+
+### 2. **Run the Docker Container**:
+
+Run the container with access to the necessary dataset and configuration files. The dataset should be mounted into the container.
+
+```bash
+docker run --gpus all -v /path/to/data:/app/data lumbar-spine-degenerative-classification
+```
+
+Make sure to replace `/path/to/data` with the actual path to your dataset on your machine. This command also assumes that you're using a GPU for the training (you can remove `--gpus all` if using CPU).
+
+### 3. **Using Prebuilt Docker Image from GitHub Container Registry**:
+
+Alternatively, you can pull the prebuilt image from GitHub Container Registry and run it without building the image locally.
+
+```bash
+docker pull ghcr.io/anto18671/lumbar-spine-degenerative-classification:latest
+```
+
+Then, run the image:
+
+```bash
+docker run --gpus all -v /path/to/data:/app/data ghcr.io/anto18671/lumbar-spine-degenerative-classification:latest
+```
+
+This approach ensures that your development environment is consistent and isolated from any external dependencies.
 
 ## Usage
 
