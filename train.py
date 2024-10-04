@@ -34,6 +34,18 @@ CONFIG = {
 }
 
 # ============================
+# Path Configuration
+# ============================
+
+# Get the directory where the script is located
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Use this variable to dynamically set the paths for your data files
+TRAIN_CSV_PATH = os.path.join(SCRIPT_DIR, 'data', 'train.csv')
+TRAIN_COORDINATES_CSV_PATH = os.path.join(SCRIPT_DIR, 'data', 'train_label_coordinates.csv')
+TRAIN_IMAGES_DIR = os.path.join(SCRIPT_DIR, 'data', 'train_images')
+
+# ============================
 # Utility Functions
 # ============================
 
@@ -63,15 +75,15 @@ def load_data():
     """
     Load labels and image paths into a DataFrame.
     """
-    labels_df = pd.read_csv('data/train.csv')
-    coordinates_df = pd.read_csv('data/train_label_coordinates.csv')
+    labels_df = pd.read_csv(TRAIN_CSV_PATH)
+    coordinates_df = pd.read_csv(TRAIN_COORDINATES_CSV_PATH)
     
     # Build image path for each row in coordinates_df
     def get_image_path(row):
         study_id = row['study_id']
         series_id = row['series_id']
         instance_number = row['instance_number']
-        image_path = os.path.join('data/train_images', str(study_id), str(series_id), f"{instance_number}.dcm")
+        image_path = os.path.join(TRAIN_IMAGES_DIR, str(study_id), str(series_id), f"{instance_number}.dcm")
         return image_path
     
     # Apply get_image_path function to each row in coordinates_df
@@ -483,13 +495,11 @@ def prepare_data(df, fold=0, condition=None):
     # Create DataLoader for the training dataset
     train_loader = DataLoader(
         train_dataset, batch_size=4, shuffle=True,
-        num_workers=4, pin_memory=True
     )
     
     # Create DataLoader for the validation dataset
     valid_loader = DataLoader(
         valid_dataset, batch_size=4, shuffle=False,
-        num_workers=4, pin_memory=True
     )
     
     # Return the data loaders for training and validation
